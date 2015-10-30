@@ -58,7 +58,7 @@ import java.util.Map;
 public class MainActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, ResultCallback<Status> {
 
-    protected static final String TAG = "creating-and-monitoring-geofences";
+    protected static final String TAG = "MainActivity";
 
     /**
      * Provides the entry point to Google Play services.
@@ -159,10 +159,10 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void onConnectionSuspended(int cause) {
-        // The connection to Google Play services was lost for some reason. We call connect() to
-        // attempt to re-establish the connection.
+        // The connection to Google Play services was lost for some reason.
         Log.i(TAG, "Connection suspended");
-        mGoogleApiClient.connect();
+
+        // onConnected() will be called again automatically when the service reconnects
     }
 
     /**
@@ -253,7 +253,7 @@ public class MainActivity extends ActionBarActivity implements
             mGeofencesAdded = !mGeofencesAdded;
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putBoolean(Constants.GEOFENCES_ADDED_KEY, mGeofencesAdded);
-            editor.commit();
+            editor.apply();
 
             // Update the UI. Adding geofences enables the Remove Geofences button, and removing
             // geofences enables the Add Geofences button.

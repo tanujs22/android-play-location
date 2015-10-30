@@ -62,7 +62,7 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, ResultCallback<Status> {
 
-    protected static final String TAG = "activity-recognition";
+    protected static final String TAG = "MainActivity";
 
     /**
      * A receiver for DetectedActivity objects broadcast by the
@@ -74,11 +74,6 @@ public class MainActivity extends ActionBarActivity implements
      * Provides the entry point to Google Play services.
      */
     protected GoogleApiClient mGoogleApiClient;
-
-    /**
-     * Used when requesting or removing activity detection updates.
-     */
-    private PendingIntent mActivityDetectionPendingIntent;
 
     // UI elements.
     private Button mRequestActivityUpdatesButton;
@@ -280,10 +275,6 @@ public class MainActivity extends ActionBarActivity implements
      * Gets a PendingIntent to be sent for each activity detection.
      */
     private PendingIntent getActivityDetectionPendingIntent() {
-        // Reuse the PendingIntent if we already have it.
-        if (mActivityDetectionPendingIntent != null) {
-            return mActivityDetectionPendingIntent;
-        }
         Intent intent = new Intent(this, DetectedActivitiesIntentService.class);
 
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling
